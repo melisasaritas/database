@@ -86,12 +86,12 @@ class Command(BaseCommand):
             """)
 
             cursor.execute("""
-                           CREATE TABLE IF NOT EXISTS Computer (
-                               ComputerID INT AUTO_INCREMENT PRIMARY KEY,
-                               AdminID INT,
-                               FOREIGN KEY (AdminID) REFERENCES Administration(AdminId)
-                           )
-                        """)
+                CREATE TABLE IF NOT EXISTS Computer (
+                    ComputerID INT AUTO_INCREMENT PRIMARY KEY,
+                    AdminID INT,
+                    FOREIGN KEY (AdminID) REFERENCES Administration(AdminId)
+                )
+            """)
 
             # Create Buys table
             cursor.execute("""
@@ -102,18 +102,7 @@ class Command(BaseCommand):
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
-
-            # Create Result_in table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Result_in (
-                    RecomID INT,
-                    ComputerID INT,
-                    CustomerID INT,
-                    FOREIGN KEY (RecomID, ComputerID) REFERENCES Recommendation(RecomID, ComputerID),
-                    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
-                )
-            """)
-
+            
             # Create Recommendation table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Recommendation (
@@ -125,8 +114,50 @@ class Command(BaseCommand):
                 )
             """)
 
+            # Create Result_in table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Result_in (
+                    RecomID INT,
+                    ComputerID INT,
+                    CustomerID INT,
+                    FOREIGN KEY (RecomID) REFERENCES Recommendation(RecomID),
+                    FOREIGN KEY (ComputerID) REFERENCES Recommendation(ComputerID),
+                    FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
+                )
+            """)
+
+            # Create RAM table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS RAM (
+                    SerialNumber INT PRIMARY KEY,
+                    Capacity INT
+                )
+            """)
+
             # Create Computer table
 
+            # Create Processing_Unit table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Processing_Unit (
+                    SerialNumber INT PRIMARY KEY,
+                    ClockSpeed FLOAT,
+                    Generation INT,
+                    CPU_flag BOOLEAN,
+                    GPU_flag BOOLEAN
+                )
+            """)
+
+            # Create Storage_Device table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS Storage_Device (
+                    SerialNumber INT PRIMARY KEY,
+                    WriteSpeed FLOAT,
+                    Capacity INT,
+                    ReadSpeed FLOAT,
+                    SSD_flag BOOLEAN,
+                    HDD_flag BOOLEAN
+                )
+            """)
 
             # Create Pre-assembled table
             cursor.execute("""
@@ -152,6 +183,15 @@ class Command(BaseCommand):
                 )
             """)
 
+            # Create component table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS component (
+                    SerialNumber INT AUTO_INCREMENT PRIMARY KEY,
+                    Price FLOAT,
+                    Name VARCHAR(100) NOT NULL
+                )
+            """)
+            
             # Create Use_components table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Use_components (
@@ -162,14 +202,6 @@ class Command(BaseCommand):
                 )
             """)
 
-            # Create component table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS component (
-                    SerialNumber INT AUTO_INCREMENT PRIMARY KEY,
-                    Price FLOAT,
-                    Name VARCHAR(100) NOT NULL
-                )
-            """)
 
             # Create Monitor table
             cursor.execute("""
@@ -187,33 +219,3 @@ class Command(BaseCommand):
                 )
             """)
 
-            # Create RAM table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS RAM (
-                    SerialNumber INT PRIMARY KEY,
-                    Capacity INT
-                )
-            """)
-
-            # Create Processing_Unit table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Processing_Unit (
-                    SerialNumber INT PRIMARY KEY,
-                    ClockSpeed FLOAT,
-                    Generation INT,
-                    CPU_flag BOOLEAN,
-                    GPU_flag BOOLEAN
-                )
-            """)
-
-            # Create Storage_Device table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS Storage_Device (
-                    SerialNumber INT PRIMARY KEY,
-                    WriteSpeed FLOAT,
-                    Capacity INT,
-                    ReadSpeed FLOAT,
-                    SSD_flag BOOLEAN,
-                    HDD_flag BOOLEAN
-                )
-            """)
