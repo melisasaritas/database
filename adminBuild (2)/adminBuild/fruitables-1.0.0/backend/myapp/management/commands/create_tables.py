@@ -85,6 +85,14 @@ class Command(BaseCommand):
                 )
             """)
 
+            cursor.execute("""
+                           CREATE TABLE IF NOT EXISTS Computer (
+                               ComputerID INT AUTO_INCREMENT PRIMARY KEY,
+                               AdminID INT,
+                               FOREIGN KEY (AdminID) REFERENCES Administration(AdminId)
+                           )
+                        """)
+
             # Create Buys table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Buys (
@@ -118,13 +126,7 @@ class Command(BaseCommand):
             """)
 
             # Create Computer table
-            #cursor.execute("""
-            #    CREATE TABLE IF NOT EXISTS Computer (
-            #        ComputerID INT AUTO_INCREMENT PRIMARY KEY,
-            #        AdminID INT,
-            #        FOREIGN KEY (AdminID) REFERENCES Administration(AdminId)
-            #    )
-            #""")
+
 
             # Create Pre-assembled table
             cursor.execute("""
