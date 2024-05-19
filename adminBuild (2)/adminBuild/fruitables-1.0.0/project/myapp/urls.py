@@ -1,6 +1,6 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import custom_view
+from .views import custom_view, custom_login_view
 
 app_name = 'myapp'
 
@@ -17,11 +17,13 @@ urlpatterns = [
     path('AdminPanel/User_Data', TemplateView.as_view(template_name="user_data.html")),
 
     path('Check', TemplateView.as_view(template_name="chackout.html")),
-    path('LogIn', TemplateView.as_view(template_name="login.html")),
+    path('login', custom_login_view, name='login'),
     path('ShopDetail', TemplateView.as_view(template_name="shop-detail.html")),
     path('SignUp', TemplateView.as_view(template_name="signup.html")),
     path('UserAccount', TemplateView.as_view(template_name="useraccountnew.html")),
-
+    
+    #path('api/computers/', ComputerView.as_view(), name='computers-api'),
+    path('helloworld/', custom_view, name='helloworld'),
     #path('deneme', custom_view(), name='detailcreate'),
 
 ]
