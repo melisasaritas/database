@@ -19,7 +19,7 @@ urlpatterns = [
          TemplateView.as_view(template_name="user_data.html")),
 
     path('Check', TemplateView.as_view(template_name="chackout.html")),
-    path('LogIn', custom_login_view, name='login'),
+    path('login', custom_login_view, name='login'),
     path('ShopDetail', TemplateView.as_view(template_name="shop-detail.html")),
     path('SignUp', custom_register_view , name='signup'),
     path('UserAccount', TemplateView.as_view(
