@@ -45,7 +45,7 @@ def custom_register_view(request):
                 "INSERT INTO customer (Username, Password) VALUES (%s, %s)", [username, password])
 
         # Redirect to a success page or any other desired view
-        return redirect('/')
+        return redirect('/login')
     else:
         # Render the signup form template
         return render(request, 'signup.html')
