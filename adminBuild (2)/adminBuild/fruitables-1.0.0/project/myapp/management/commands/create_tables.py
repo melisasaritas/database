@@ -167,6 +167,7 @@ class Command(BaseCommand):
                     Price FLOAT,
                     Processor INT,
                     Storage INT,
+                    Name VARCHAR(100) NOT NULL,
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID),
                     FOREIGN KEY (RAM) REFERENCES RAM(SerialNumber),
                     FOREIGN KEY (Processor) REFERENCES Processing_Unit(SerialNumber),
@@ -189,6 +190,21 @@ class Command(BaseCommand):
                     SerialNumber INT AUTO_INCREMENT PRIMARY KEY,
                     Price FLOAT,
                     Name VARCHAR(100) NOT NULL
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS custom_made (
+                   ComputerID INT,
+                   FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS pre_assembled_storage (
+                    ComputerID INT,
+                    Storage VARCHAR(100) NOT NULL,
+                    FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
             

@@ -33,7 +33,7 @@ urlpatterns = [
     path('Check', include('myapp.urls', namespace='myapp')),
     path('login', include('myapp.urls', namespace='myapp')),
     path('ShopDetail', include('myapp.urls', namespace='myapp')),
-    path('SignUp', include('myapp.urls', namespace='myapp')),
+    path('signup', include('myapp.urls', namespace='myapp')),
     path('UserAccount', include('myapp.urls', namespace='myapp')),
     path('', include('myapp.urls'))
 ]

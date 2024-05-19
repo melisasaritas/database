@@ -8,6 +8,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         with connection.cursor() as cursor:
             # Insert dummy data into tables
+            self.insert_pre_assembled_data(cursor)
             self.insert_admin_data(cursor)
             self.insert_customer_data(cursor)
             self.insert_records_data(cursor)
@@ -17,7 +18,6 @@ class Command(BaseCommand):
             self.insert_ram_data(cursor)
             self.insert_processing_unit_data(cursor)
             self.insert_storage_device_data(cursor)
-            self.insert_pre_assembled_data(cursor)
             self.insert_pre_assembled_io_data(cursor)
             self.insert_component_data(cursor)
             self.insert_use_components_data(cursor)
@@ -140,8 +140,8 @@ class Command(BaseCommand):
     def insert_pre_assembled_data(self, cursor):
         # Insert dummy data into the Pre-assembled table (two entries)
         cursor.execute("""
-            INSERT INTO Pre_assembled (ComputerID, RAM, Price, Processor, Storage)
-            VALUES (1, 123, 1200, 789, 654), (2, 456, 1500, 987, 321)
+            INSERT INTO Pre_assembled (ComputerID, RAM, Price, Processor, Storage, Name)
+            VALUES (1, 123, 1200, 789, 654, 'Lenovo'), (2, 456, 1500, 987, 321, 'Hp')
         """)
 
     def insert_pre_assembled_io_data(self, cursor):

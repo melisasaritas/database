@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
   {% load static %}
   <meta charset="UTF-8">
@@ -7,6 +8,7 @@
   <title>Login | BuildyourPC.com</title>
   <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
+
 <body>
   <div class="wrapper">
     <h2>Login</h2>
@@ -27,6 +29,10 @@
       </div>
       {% endif %}
     </form>
+    <div class="text">
+      <h3>Don't have an account? <a href="{% url 'myapp:signup' %}">Register now</a></h3>
+    </div>
   </div>
 </body>
+
 </html>

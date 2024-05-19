@@ -49,3 +49,38 @@ def custom_register_view(request):
     else:
         # Render the signup form template
         return render(request, 'signup.html')
+
+@api_view(['GET', 'POST'])
+def custom_home_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM Pre_assembled")
+        products = cursor.fetchall()
+        image_filenames = ['thinkpad.jpg', 'dell.jpg', 'MSI.jpg']  # Add your image filenames here
+        products_with_images = zip(products, image_filenames)
+        return render(request, 'index.html', {'products_with_images': products_with_images})
+
+def add_to_cart(request, product_id):
+    cart = request.session.get('cart', [])
+    if product_id not in cart:
+        cart.append(product_id)
+    request.session['cart'] = cart
+    return redirect('/')
+
+def view_cart(request):
+    cart = request.session.get('cart', [])
+    if (cart == []):
+        return render(request, 'cart.html', {'cart_items': []})
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM Pre_assembled WHERE ComputerID IN (%s)" % ','.join(['%s'] * len(cart)), cart)
+        cart_items = cursor.fetchall()
+        if not cart_items:
+            cursor.execute(
+                "SELECT * FROM custom_made WHERE ComputerID IN (%s)" % ','.join(['%s'] * len(cart)), cart)
+            cart_items = cursor.fetchall()
+        return render(request, 'cart.html', {'cart_items': cart_items})
+
+def checkout(request):
+    request.session['cart'] = []
+    return redirect('/ShoppingCart')
