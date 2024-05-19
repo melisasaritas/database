@@ -31,9 +31,9 @@ urlpatterns = [
     path('AdminPanel/User_Data', include('myapp.urls', namespace='myapp')),
 
     path('Check', include('myapp.urls', namespace='myapp')),
-    path('login', include('myapp.urls', namespace='myapp')),
+    path('LogIn', include('myapp.urls', namespace='myapp')),
     path('ShopDetail', include('myapp.urls', namespace='myapp')),
     path('SignUp', include('myapp.urls', namespace='myapp')),
     path('UserAccount', include('myapp.urls', namespace='myapp')),
-
+    path('', include('myapp.urls'))
 ]
