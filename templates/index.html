@@ -114,7 +114,7 @@
                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid rounded-circle w-100" alt="">
                             </div>
                             <div class="col-6">
-                                <a href="#" class="h5">{{ computer.5 }}</a>
+                                <a href="#" class="h5">{{ computer.4 }}</a>
                                 <div class="d-flex my-3">
                                     <i class="fas fa-star text-primary"></i>
                                     <i class="fas fa-star text-primary"></i>
@@ -123,7 +123,7 @@
                                     <i class="fas fa-star"></i>
                                 </div>
                                 <h4 class="mb-3">{{ computer.2 }}$</h4>
-                                <form action="{% url 'myapp:add_to_cart' computer.0 %}" method="post"> 
+                                <form action="{% url 'myapp:add_to_cart' product_id=computer.0 ram=computer.1 price=computer.2 processor=computer.3 name=computer.4 %}" method="post"> 
                                     {% csrf_token %}
                                     <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
                                         <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart

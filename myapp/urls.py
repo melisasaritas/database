@@ -1,15 +1,15 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import custom_register_view, custom_view, custom_login_view, custom_home_view, add_to_cart, view_cart, checkout, remove_item
+from .views import custom_register_view, custom_view, custom_login_view, custom_home_view, add_to_cart, view_cart, checkout, remove_item, custom_computers_view
 
 app_name = 'myapp'
 
 urlpatterns = [
     path('', custom_home_view, name=""),
-    path('add_to_cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
+    path('add_to_cart/<int:product_id>/<int:ram>/<str:price>/<int:processor>/<str:name>/', add_to_cart, name='add_to_cart'),
     
     path('BuildPc', TemplateView.as_view(template_name="shop.html")),
-    path('PreMade', TemplateView.as_view(template_name="computers.html")),
+    path('PreMade', custom_computers_view, name="computers.html"),
     path('ContactUs', TemplateView.as_view(template_name="contact.html")),
     
     path('ShoppingCart', view_cart, name='view_cart'),

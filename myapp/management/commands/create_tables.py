@@ -1,8 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
-# db_utils.py
-
 class Command(BaseCommand):
     help = 'Create tables in the MySQL database'
     def handle(self, *args, **options):
@@ -22,6 +20,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Admin_Address (
                     AdminId INT,
                     Address VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (AdminID, Address),
                     FOREIGN KEY (AdminId) REFERENCES Administration(AdminId)
                 )
             """)
@@ -31,6 +30,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Admin_Phone (
                     AdminId INT,
                     Phone VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (AdminID, Phone),
                     FOREIGN KEY (AdminId) REFERENCES Administration(AdminId)
                 )
             """)
@@ -49,6 +49,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Cust_BankAcc (
                     CustomerID INT,
                     BankAccount VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (CustomerID, BankAccount),
                     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
                 )
             """)
@@ -58,6 +59,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Cust_address (
                     CustomerID INT,
                     Address VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (CustomerID, Address), 
                     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
                 )
             """)
@@ -67,6 +69,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Cust_phone (
                     CustomerID INT,
                     Phone VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (CustomerID, Phone),
                     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
                 )
             """)
@@ -80,7 +83,7 @@ class Command(BaseCommand):
                     Cancel_flag BOOLEAN,
                     Proceeding_flag BOOLEAN,
                     Received_flag BOOLEAN,
-                    OrderDate DATE,
+                    OrderDate DATE, 
                     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID)
                 )
             """)
@@ -98,6 +101,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Buys (
                     CustomerID INT,
                     ComputerID INT,
+                    PRIMARY KEY (CustomerID, ComputerID), 
                     FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
@@ -108,12 +112,20 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Recommendation (
                     RecomID INT AUTO_INCREMENT PRIMARY KEY,
                     ComputerID INT,
-                    ReceiverID INT,
-                    FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID),
-                    FOREIGN KEY (ReceiverID) REFERENCES Customer(CustomerID)
+                    ReceiverID INT, 
+                    FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
 
+            # Create component table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS component (
+                    SerialNumber INT AUTO_INCREMENT PRIMARY KEY,
+                    Price FLOAT,
+                    Name VARCHAR(100) NOT NULL
+                )
+            """)
+            
             # Create Result_in table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Result_in (
@@ -130,7 +142,8 @@ class Command(BaseCommand):
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS RAM (
                     SerialNumber INT PRIMARY KEY,
-                    Capacity INT
+                    Capacity INT,
+                    FOREIGN KEY (SerialNumber) REFERENCES component(SerialNumber)
                 )
             """)
 
@@ -143,7 +156,8 @@ class Command(BaseCommand):
                     ClockSpeed FLOAT,
                     Generation INT,
                     CPU_flag BOOLEAN,
-                    GPU_flag BOOLEAN
+                    GPU_flag BOOLEAN,
+                    FOREIGN KEY (SerialNumber) REFERENCES component(SerialNumber)
                 )
             """)
 
@@ -155,7 +169,8 @@ class Command(BaseCommand):
                     Capacity INT,
                     ReadSpeed FLOAT,
                     SSD_flag BOOLEAN,
-                    HDD_flag BOOLEAN
+                    HDD_flag BOOLEAN,
+                    FOREIGN KEY (SerialNumber) REFERENCES component(SerialNumber)
                 )
             """)
 
@@ -166,7 +181,6 @@ class Command(BaseCommand):
                     RAM INT,
                     Price FLOAT,
                     Processor INT,
-                    Storage INT,
                     Name VARCHAR(100) NOT NULL,
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
@@ -177,22 +191,16 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Pre_assembled_IO (
                     ComputerID INT,
                     IO INT,
+                    PRIMARY KEY (ComputerID, IO),
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
 
-            # Create component table
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS component (
-                    SerialNumber INT AUTO_INCREMENT PRIMARY KEY,
-                    Price FLOAT,
-                    Name VARCHAR(100) NOT NULL
-                )
-            """)
 
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS custom_made (
                    ComputerID INT,
+                   PRIMARY KEY (ComputerID),
                    FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
@@ -201,6 +209,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS pre_assembled_storage (
                     ComputerID INT,
                     Storage VARCHAR(100) NOT NULL,
+                    PRIMARY KEY (ComputerID, Storage),
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
@@ -210,6 +219,7 @@ class Command(BaseCommand):
                 CREATE TABLE IF NOT EXISTS Use_components (
                     ComputerID INT,
                     SerialNumber INT,
+                    PRIMARY KEY (ComputerID, SerialNumber),
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID),
                     FOREIGN KEY (SerialNumber) REFERENCES Component(SerialNumber)
                 )

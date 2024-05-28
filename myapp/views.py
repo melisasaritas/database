@@ -56,33 +56,61 @@ def custom_home_view(request):
         products_with_images = zip(products, image_filenames)
         return render(request, 'index.html', {'products_with_images': products_with_images})
 
-def add_to_cart(request, product_id):
-    cart = request.session.get('cart', [])
-    cart.append(product_id)
-    request.session['cart'] = cart
+def add_to_cart(request, product_id, ram, price, processor, name):
+    with connection.cursor() as cursor:
+        price_f = float(price)
+        cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS cart (
+                        CartID INT AUTO_INCREMENT PRIMARY KEY,
+                        ComputerID INT,
+                        RAM INT,
+                        Price FLOAT,
+                        Processor INT,
+                        Name VARCHAR(100) NOT NULL,
+                        FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
+                    )
+                """)
+        insert_query = """
+            INSERT INTO cart (ComputerID, RAM, Price, Processor, Name)
+            VALUES (%s, %s, %s, %s, %s)
+        """
+        cursor.execute(insert_query, (product_id, ram, price_f, processor, name))
     return redirect('/')
 
 def view_cart(request):
-    cart = request.session.get('cart', [])
-    if (cart == []):
-        return render(request, 'cart.html', {'cart_items': []})
     with connection.cursor() as cursor:
-        cursor.execute(
-            "SELECT * FROM Pre_assembled WHERE ComputerID IN (%s)" % ','.join(['%s'] * len(cart)), cart)
-        cart_items = cursor.fetchall()
-        if not cart_items:
-            cursor.execute(
-                "SELECT * FROM custom_made WHERE ComputerID IN (%s)" % ','.join(['%s'] * len(cart)), cart)
+        cursor.execute("""SHOW TABLES LIKE 'cart';""")
+        table_exists = cursor.fetchone()
+        if table_exists:
+            cursor.execute("SELECT * FROM server.cart")
             cart_items = cursor.fetchall()
+        else:
+            return render(request, 'cart.html', {'cart_items': []})
+
+        # You can add additional logic here if needed (e.g., fetching from another table)
+
         return render(request, 'cart.html', {'cart_items': cart_items})
 
+
 def checkout(request):
-    request.session['cart'] = []
+    with connection.cursor() as cursor:
+        cursor.execute("""DROP TABLE cart;""")
     return redirect('/ShoppingCart')
 
 def remove_item(request, product_id):
-    cart = request.session.get('cart', [])
-    if product_id in cart:
-        cart.pop(cart.index(product_id))
-    request.session['cart'] = cart
+    with connection.cursor() as cursor:
+        insert_query = """
+            DELETE FROM cart
+            WHERE CartID = %s
+        """
+        cursor.execute(insert_query, (product_id,))
     return redirect('/ShoppingCart')
+
+def custom_computers_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM Pre_assembled")
+        products = cursor.fetchall()
+        image_filenames = ['thinkpad.jpg', 'dell.jpg', 'MSI.jpg']  # Add your image filenames here
+        products_with_images = zip(products, image_filenames)
+        return render(request, 'computers.html', {'products_with_images': products_with_images})
