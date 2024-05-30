@@ -1,8 +1,10 @@
 from django.core.management.base import BaseCommand
 from django.db import connection
 
+
 class Command(BaseCommand):
     help = 'Create tables in the MySQL database'
+
     def handle(self, *args, **options):
         with connection.cursor() as cursor:
             # Create Administration table
@@ -106,7 +108,7 @@ class Command(BaseCommand):
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
-            
+
             # Create Recommendation table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Recommendation (
@@ -125,7 +127,7 @@ class Command(BaseCommand):
                     Name VARCHAR(100) NOT NULL
                 )
             """)
-            
+
             # Create Result_in table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Result_in (
@@ -173,14 +175,13 @@ class Command(BaseCommand):
                     FOREIGN KEY (SerialNumber) REFERENCES component(SerialNumber)
                 )
             """)
-
-            # Create Pre-assembled table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Pre_assembled (
                     ComputerID INT PRIMARY KEY,
                     RAM INT,
                     Price FLOAT,
                     Processor INT,
+                    Type INT,
                     Name VARCHAR(100) NOT NULL,
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
@@ -195,7 +196,6 @@ class Command(BaseCommand):
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
-
 
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS custom_made (
@@ -213,7 +213,7 @@ class Command(BaseCommand):
                     FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                 )
             """)
-            
+
             # Create Use_components table
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS Use_components (
@@ -224,7 +224,6 @@ class Command(BaseCommand):
                     FOREIGN KEY (SerialNumber) REFERENCES Component(SerialNumber)
                 )
             """)
-
 
             # Create Monitor table
             cursor.execute("""
@@ -241,4 +240,3 @@ class Command(BaseCommand):
                     FOREIGN KEY (SerialNumber) REFERENCES component(SerialNumber)
                 )
             """)
-

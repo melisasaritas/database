@@ -100,7 +100,6 @@
     <div style="height: 20px;"></div>
 
 
-    <!-- Fruits Shop Start-->
     <div class="container-fluid fruite py-5">
         <div class="container py-5">
             <div class="tab-class text-center">
@@ -139,399 +138,41 @@
                     </div>
                 </div>
                 <div class="tab-content">
-                    <div id="tab-1" class="tab-pane fade show p-0 active">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-<div class="rounded position-relative fruite-item">
-    <div class="fruite-img">
-        <img src="{% static 'img/dell.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-    </div>
-    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Laptop</div>
-    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-        <h4>Dell XPS 13 Laptop</h4>
-        <p>Premium laptop with stunning display and powerful performance. Features a sleek design, vibrant InfinityEdge
-            display,
-            and high-end Intel Core processors.</p>
-        <div class="d-flex justify-content-between flex-lg-wrap">
-            <p class="text-dark fs-5 fw-bold mb-0">$1700</p>
-            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                cart</a>
-        </div>
-    </div>
-</div>
+                    <div class="row">
+                        {% for computer, image_filename in products_with_images %}
+                        <div class="col-lg-6 col-xl-4 mb-4">
+                            <div class="p-4 rounded bg-light">
+                                <div class="row align-items-center">
+                                    <div class="col-6">
+                                        <!-- Reference the static image directly -->
+                                        <img src="{% static 'img/'|add:image_filename %}" class="img-fluid rounded-circle w-100" alt="">
                                     </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                                                                <div class="rounded position-relative fruite-item">
-                                                                                    <div class="fruite-img">
-                                                                                        <img src="{% static 'img/thinkpad.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                                                                    </div>
-                                                                                    <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Laptop</div>
-                                                                                    <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                                                        <h4>Lenovo ThinkPad X1 Carbon Laptop</h4>
-                                                                                        <p>Ultra-portable business laptop with exceptional durability and performance. Offers a lightweight carbon fiber
-                                                                                            chassis,
-                                                                                            long battery life, and powerful Intel Core processors.</p>
-                                                                                        <div class="d-flex justify-content-between flex-lg-wrap">
-                                                                                            <p class="text-dark fs-5 fw-bold mb-0">$2100</p>
-                                                                                            <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                                                    class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                                                                cart</a>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/lenovo.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Engineering
-                                                PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Lenovo ThinkStation P520 Workstation</h4>
-                                                <p>Robust workstation designed for engineering and professional tasks. Equipped with high-performance Intel Xeon
-                                                    processors
-                                                    and NVIDIA Quadro graphics cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$3000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
+                                    <div class="col-6">
+                                        <a href="#" class="h5">{{ computer.5 }}</a>
+                                        <div class="d-flex my-3">
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star text-primary"></i>
+                                            <i class="fas fa-star"></i>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/lenovo.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Engineering
-                                                PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Lenovo ThinkStation P520 Workstation</h4>
-                                                <p>Robust workstation designed for engineering and professional tasks. Equipped with high-performance Intel Xeon
-                                                    processors
-                                                    and NVIDIA Quadro graphics cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$3000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/hp.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Engineering
-                                                PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>HP Z4 G4 Workstation</h4>
-                                                <p>Reliable workstation tailored for engineering applications. Powered by Intel Xeon processors and NVIDIA
-                                                    Quadro graphics
-                                                    cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/hp.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Engineering
-                                                PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>HP Z4 G4 Workstation</h4>
-                                                <p>Reliable workstation tailored for engineering applications. Powered by Intel Xeon processors and NVIDIA
-                                                    Quadro graphics
-                                                    cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/R11.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Gaming PC
-                                            </div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Alienware Aurora R11 Gaming Desktop</h4>
-                                                <p>Powerful gaming rig with customizable lighting.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/MSI.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Gaming PC
-                                            </div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>MSI Trident 3 Gaming Desktop</h4>
-                                                <p>Compact gaming desktop with powerful performance. Features Intel Core processors and NVIDIA GeForce GTX
-                                                    graphics cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$1000</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <h4 class="mb-3">{{ computer.2 }}$</h4>
+                                        <form
+                                            action="{% url 'myapp:add_to_cart' product_id=computer.0 ram=computer.1 price=computer.2 processor=computer.3 name=computer.5 %}"
+                                            method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn border border-secondary rounded-pill px-3 text-primary">
+                                                <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div id="tab-2" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/dell.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Laptop</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Dell XPS 13 Laptop</h4>
-                                                <p>Premium laptop with stunning display and powerful performance. Features a sleek design, vibrant InfinityEdge display,
-                                                and high-end Intel Core processors.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$1700</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/thinkpad.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Laptop</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Lenovo ThinkPad X1 Carbon Laptop</h4>
-                                                <p>Ultra-portable business laptop with exceptional durability and performance. Offers a lightweight carbon fiber chassis,
-                                                long battery life, and powerful Intel Core processors.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2100</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-3" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/lenovo.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Engineering PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Lenovo ThinkStation P520 Workstation</h4>
-                                                <p>Robust workstation designed for engineering and professional tasks. Equipped with high-performance Intel Xeon processors
-                                                and NVIDIA Quadro graphics cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$3000</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/hp.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Engineering PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>HP Z4 G4 Workstation</h4>
-                                                <p>Reliable workstation tailored for engineering applications. Powered by Intel Xeon processors and NVIDIA Quadro graphics
-                                                cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2000</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-4" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/R11.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Gaming PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Alienware Aurora R11 Gaming Desktop</h4>
-                                                <p>Powerful gaming rig with customizable lighting.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$2000</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/MSI.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Gaming PC</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>MSI Trident 3 Gaming Desktop</h4>
-                                                <p>Compact gaming desktop with powerful performance. Features Intel Core processors and NVIDIA GeForce GTX graphics cards.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$1000</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-5" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-lg-12">
-                                <div class="row g-4">
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/HP-Pav.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Desktop</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>HP Pavilion Desktop</h4>
-                                                <p>Versatile and reliable desktop for home or office use. Sleek design, powerful performance, and customizable
-                                                configurations for everyday tasks, multimedia, and light gaming.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$650</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/Del-XPS.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Desktop</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Dell XPS Desktop</h4>
-                                                <p>Premium desktop known for exceptional performance and sleek design. Ideal for power users, content creators, and gamers
-                                                with high-end components and customizable configurations.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$1700</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-4 col-xl-3">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/Acer-Aspire.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                style="top: 10px; left: 10px;">Desktop</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Acer Aspire TC Desktop</h4>
-                                                <p>Budget-friendly desktop for everyday computing. Compact tower design, reliable performance, and ample storage. Suitable
-                                                for web browsing, media streaming, and productivity tasks.</p>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$400</p>
-                                                    <a href="#"
-                                                        class="btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                            class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                                                        cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
-            </div>
-        </div>
+
         <!-- Footer Start -->
         <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
             <div class="container py-5">

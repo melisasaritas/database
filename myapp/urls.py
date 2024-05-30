@@ -6,16 +6,18 @@ app_name = 'myapp'
 
 urlpatterns = [
     path('', custom_home_view, name=""),
-    path('add_to_cart/<int:product_id>/<int:ram>/<str:price>/<int:processor>/<str:name>/', add_to_cart, name='add_to_cart'),
-    
+    path('add_to_cart/<int:product_id>/<int:ram>/<str:price>/<int:processor>/<str:name>/',
+         add_to_cart, name='add_to_cart'),
+
     path('BuildPc', TemplateView.as_view(template_name="shop.html")),
     path('PreMade', custom_computers_view, name="computers.html"),
+
     path('ContactUs', TemplateView.as_view(template_name="contact.html")),
-    
+
     path('ShoppingCart', view_cart, name='view_cart'),
     path('checkout', checkout, name='checkout'),
     path('remove_item/<int:product_id>/', remove_item, name='remove_item'),
-    
+
     path('AdminPanel/', TemplateView.as_view(template_name="index2.html")),
     path('AdminPanel/History', TemplateView.as_view(template_name="history.html")),
     path('AdminPanel/Stock_Data',
@@ -24,8 +26,9 @@ urlpatterns = [
          TemplateView.as_view(template_name="user_data.html")),
 
     path('login', custom_login_view, name='login'),
-    path('signup', custom_register_view , name='signup'),
+    path('signup', custom_register_view, name='signup'),
     path('UserAccount', TemplateView.as_view(
         template_name="useraccountnew.html")),
+
 
 ]

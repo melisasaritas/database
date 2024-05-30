@@ -132,12 +132,21 @@ class Command(BaseCommand):
             INSERT INTO Storage_Device (SerialNumber, WriteSpeed, Capacity, ReadSpeed, SSD_flag, HDD_flag)
             VALUES (10, 100, 512, 120, 1, 0), (11, 150, 1024, 80, 1, 0), (12, 50, 256, 160, 1, 0), (13, 50, 512, 40, 0, 1), (14, 60, 1024, 80, 0, 1), (15, 40, 256, 120, 0, 1)
         """)
-
     def insert_pre_assembled_data(self, cursor):
         # Insert dummy data into the Pre-assembled table (two entries)
         cursor.execute("""
-            INSERT INTO Pre_assembled (ComputerID, RAM, Price, Processor, Name)
-            VALUES (1, 123, 1200, 789, 'Lenovo'), (2, 456, 1500, 987, 'Hp'), (3, 461, 1600, 971, 'MSI')
+            INSERT INTO Pre_assembled (ComputerID, RAM, Price, Type, Processor, Name)
+            VALUES 
+                (1, 16, 1200, 1, 1, 'Lenovo Laptop'), 
+                (2, 32, 1500, 2, 1, 'HP Engineering PC'), 
+                (3, 16, 1600, 3, 1, 'MSI Gaming PC'),
+                (4, 8, 800, 4, 1, 'Dell Desktop'),
+                (5, 16, 1400, 1,2, 'Asus Laptop'),
+                (6, 64, 2500, 2, 2, 'Supermicro Engineering PC'),
+                (7, 32, 1800, 3, 3, 'Alienware Gaming PC'),
+                (8, 8, 700, 4, 4, 'HP Desktop'),
+                (9, 16, 1300, 1, 4, 'Acer Laptop'),
+                (10, 32, 2000, 2, 5, 'Custom Engineering PC')
         """)
 
     def insert_pre_assembled_io_data(self, cursor):
