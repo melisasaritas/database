@@ -20,18 +20,77 @@ def custom_login_view(request):
 
         # Execute raw SQL query to authenticate user
         with connection.cursor() as cursor:
+            # ADMIN LOGIN ADDING
+            cursor.execute(
+                "SELECT * FROM administration WHERE AdminUsername = %s AND AdminPassword = %s", [username, password])
+            admin = cursor.fetchone()
+
+            if admin:
+                return redirect('/AdminPanel')
+
             cursor.execute(
                 "SELECT * FROM customer WHERE Username = %s AND Password = %s", [username, password])
             row = cursor.fetchone()
             if row:
-                return redirect('/')
+                # Extract CustomerID from the retrieved row
+                customer_id = row[0]
+
+                # Execute query to retrieve detailed customer information
+                cursor.execute(
+                    """
+                    SELECT 
+                        c.CustomerID,
+                        c.Username,
+                        cp.Phone,
+                        cb.BankAccount,
+                        ca.Address
+                    FROM 
+                        customer c
+                    JOIN 
+                        cust_phone cp ON c.CustomerID = cp.CustomerID
+                    JOIN 
+                        cust_bankacc cb ON c.CustomerID = cb.CustomerID
+                    JOIN 
+                        cust_address ca ON c.CustomerID = ca.CustomerID
+                    WHERE 
+                        c.CustomerID = %s;
+                    """,
+                    [customer_id]
+                )
+
+                # Fetch all details of the customer
+                customer_info = cursor.fetchone()
+
+                # Zip customer_info
+                keys = ["CustomerID", "Username", "Phone", "BankAccount", "Address"]
+                customer_info_dict = dict(zip(keys, customer_info))
+                
+                # GET THE ORDER HISTORY
+                cursor.execute(
+                    """
+                    SELECT 
+                        RecordID, CustomerID, Feedback, Cancel_flag, Proceeding_flag, Received_flag, OrderDate
+                    FROM records
+                    WHERE
+                        CustomerID = %s;
+                    """,
+                    [customer_id]
+                )
+
+                order_info = cursor.fetchall()  # Use fetchall() to get all records
+                order_info_keys = ["RecordID", "CustomerID", "Feedback", "Cancel_flag", "Proceeding_flag", "Received_flag", "OrderDate"]
+                order_info_list = [dict(zip(order_info_keys, order)) for order in order_info]
+
+                # Pass both customer_info and order_info to the template for rendering
+                return render(request, 'useraccountnew.html', {'login_info': customer_info_dict, 'order_info': order_info_list})
+
             else:
                 # Invalid credentials
                 return render(request, 'login.html', {'error': 'Invalid credentials'})
     else:
         return render(request, 'login.html')
 
-# Define your custom view function for signup
+
 
 
 @api_view(['GET', 'POST'])
@@ -47,7 +106,8 @@ def custom_register_view(request):
                 "INSERT INTO customer (Username, Password) VALUES (%s, %s)", [username, password])
 
         # Redirect to a success page or any other desired view
-        return redirect('/login')
+        return redirect('/UserAccount')
+
     else:
         # Render the signup form template
         return render(request, 'signup.html')
@@ -85,7 +145,6 @@ def add_to_cart(request, product_id, ram, price, processor, name):
         """
         cursor.execute(insert_query, (product_id,
                        ram, price_f, processor, name))
-    return redirect('/')
 
 
 def view_cart(request):
@@ -127,5 +186,16 @@ def custom_computers_view(request):
         image_filenames = ['thinkpad.jpg', 'dell.jpg',
                            'MSI.jpg', 'Acer-Aspire.jpg', 'Del-XPS.jpg',
                            'acernitro.jpg', 'hp.jpg', 'HP-Pav.jpg', 'lenovo.jpg']  # Add your image filenames here
+        products_with_images = zip(products, image_filenames)
+        return render(request, 'computers.html', {'products_with_images': products_with_images})
+
+def custom_components_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN monitor ON component.SerialNumber = monitor.SerialNumber;")
+        monitors = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']  # Add your image filenames here
         products_with_images = zip(products, image_filenames)
         return render(request, 'computers.html', {'products_with_images': products_with_images})

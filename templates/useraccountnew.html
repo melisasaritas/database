@@ -19,15 +19,15 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
         <!-- Libraries Stylesheet -->
-        <link href="{% static 'lib/lightbox/css/lightbox.min.css" rel="stylesheet">
-        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="{% static 'lib/lightbox/css/lightbox.min.css}" rel="stylesheet">
+        <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css}" rel="stylesheet">
 
 
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="{% static 'css/bootstrap.min.css" rel="stylesheet">
+        <link href="{% static 'css/bootstrap.min.css}" rel="stylesheet">
 
         <!-- Template Stylesheet -->
-        <link href="{% static 'css/style.css" rel="stylesheet">
+        <link href="{% static 'css/style.css}" rel="stylesheet">
 
         <style>
             /* Styles for the custom navigation bar */
@@ -339,7 +339,7 @@ button[type="submit"] {
     <!DOCTYPE html>
 <html>
 <head>
-    <title>Your Page</title>
+    <title>Profile Management | BuildyourPC.com</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -372,34 +372,46 @@ button[type="submit"] {
             <h2>Profile Overview</h2>
             <div class="profile-info">
                 <div class="profile-info-item">
-                    <h3>Name:</h3>
-                    <p>John Doe</p>
+                    <h3>Username:</h3>
+                    <p>{{ login_info.Username }}</p>
                 </div>
                 <div class="profile-info-item">
-                    <h3>Email:</h3>
-                    <p>johndoe@example.com</p>
+                    <h3>Bank Account:</h3>
+                    <p>{{ login_info.BankAccount  }}</p>
                 </div>
                 <div class="profile-info-item">
-                    <h3>Location:</h3>
-                    <p>New York City, USA</p>
+                    <h3>Address:</h3>
+                    <p>{{ login_info.Address }}</p>
                 </div>
                 <div class="profile-info-item">
-                    <h3>Membership:</h3>
-                    <p>Gold</p>
+                    <h3>Phone number:</h3>
+                    <p>{{ login_info.Phone  }}</p>
                 </div>
-                <div class="profile-info-item">
+                <!-- <div class="profile-info-item">
                     <h3>Joined:</h3>
                     <p>January 1, 2024</p>
-                </div>
+                </div> -->
                 <div class="profile-info-item">
                     <h3>Last Login:</h3>
-                    <p>May 7, 2024</p>
+                    <p id="last-login"></p>
                 </div>
+                
+                <script>
+                    // Get the current date and time
+                    var currentDate = new Date();
+                    
+                    // Format the date and time as desired
+                    var formattedDate = currentDate.toDateString() + ' ' + currentDate.toLocaleTimeString();
+                    
+                    // Update the HTML element with the current date and time
+                    document.getElementById('last-login').innerHTML = formattedDate;
+                </script>
             </div>
         </div>
 
+        <!-- Log out button now working -->
         <div class="logout-button">
-            <button type="button" class="btn btn-danger">Logout</button>
+            <a href="/" class="btn btn-danger">Logout</a>
         </div>
     </section>
             </div>
@@ -411,18 +423,17 @@ button[type="submit"] {
         <div class="container">
             <h2>Order History</h2>
             <div class="order-history">
+                {% for order in order_info %}
                 <div class="order">
-                    <h3>Order ID: #123456</h3>
-                    <p>Order Date: January 5, 2024</p>
-                    <p>Total Amount: $100.00</p>
-                    <p>Status: Delivered</p>
+                    <h4>Order ID: #{{ order.RecordID }}</h4>
+                    <p>Order Date: {{ order.OrderDate }}</p>
+                    <p>Feedback: {{ order.Feedback }}</p>
+                    <p>Cancel Flag: {% if order.Cancel_flag == 1 %}Cancelled{% else %}Not Cancelled{% endif %}</p>
+                    <p>Proceeding Flag: {% if order.Proceeding_flag == 1 %}Proceeding{% else %}Not Proceeding{% endif %}</p>
+                    <p>Received Flag: {% if order.Received_flag == 1 %}Received{% else %}Not Received{% endif %}</p>
                 </div>
-                <div class="order">
-                    <h3>Order ID: #789012</h3>
-                    <p>Order Date: March 15, 2024</p>
-                    <p>Total Amount: $75.50</p>
-                    <p>Status: Processing</p>
-                </div>
+                {% endfor %}
+              
                 
             </div>
         </div>
@@ -437,7 +448,7 @@ button[type="submit"] {
             <h2>Settings</h2>
             <form action="#" method="POST" class="settings-form">
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label for="name">Username:</label>
                     <input type="text" id="name" name="name" placeholder="Enter your name">
                 </div>
                 <div class="form-group">
@@ -463,12 +474,11 @@ button[type="submit"] {
                         <div class="help-content">
                             <h3>Frequently Asked Questions (FAQs)</h3>
                             <p><strong>Q: How do I reset my password?</strong></p>
-                            <p>A: You can reset your password by visiting the <a href="password_reset.html">password reset page</a> and following the instructions.</p>
+                            <p>A: You can reset your password by visiting the contact us page and following the instructions.</p>
                             
                             <p><strong>Q: How can I contact customer support?</strong></p>
-                            <p>A: You can contact our customer support team by sending an email to support@example.com or by filling out the <a href="contact.html">contact form</a>.</p>
+                            <p>A: You can contact our customer support team by sending an email to support@BuildyourPC.com or by filling out the <a href="ContactUs">contact form</a>.</p>
                             
-                            <!-- Add more FAQs or support resources here -->
                         </div>
                     </div>
                 </section>
