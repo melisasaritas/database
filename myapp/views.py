@@ -215,9 +215,14 @@ def custom_components_view(request):
         image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
                            'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
                            'westernhdd.jpg', 'coffekeyboard.jpg']  # Add your image filenames here
-        products_with_images = zip(monitors, keyboards, rams, SSDs, HDDs, CPUs, GPUs, image_filenames)
-        return render(request, 'shop.html', {'products_with_images': products_with_images})
-
+        monitors_with_images = zip(monitors, image_filenames)
+        keyboards_with_images = zip(keyboards, image_filenames)
+        rams_with_images = zip(rams, image_filenames)
+        SSDs_with_images = zip(SSDs, image_filenames)
+        HDDs_with_images = zip(HDDs, image_filenames)
+        CPUs_with_images = zip(CPUs, image_filenames)
+        GPUs_with_images = zip(GPUs, image_filenames)
+        return render(request, 'shop.html', {'MONITORS': monitors_with_images, 'KEYBOARDS': keyboards_with_images, 'RAMS': rams_with_images, 'SSDS': SSDs_with_images, 'HDDS': HDDs_with_images, 'CPUS': CPUs_with_images, 'GPUS': GPUs_with_images})
 
 from django.shortcuts import render
 from django.db import connection

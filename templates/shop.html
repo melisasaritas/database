@@ -143,10 +143,7 @@
                     <div class="col-lg-12">
                         <div class="row g-4">
                             <div class="col-xl-3">
-                                <div class="input-group w-100 mx-auto d-flex">
-                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                                </div>
+                                
                             </div>
                             <div class="col-6"></div>
                             <div class="col-xl-3">
@@ -221,13 +218,13 @@
 
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center">
-                                    {% for monitors, image_filename in products_with_images %}
+                                    {% for monitors, image_filename in MONITORS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">MONITOR</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ monitors.2 }}
                                                 </h4>
@@ -243,13 +240,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% for keyboards, image_filename in products_with_images %}
+                                    {% endfor %}
+                                    {% for keyboards, image_filename in KEYBOARDS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">KEYBOARD</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ keyboards.2 }}
                                                 </h4>
@@ -265,13 +263,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% for rams, image_filename in products_with_images %}
+                                    {% endfor %}
+                                    {% for rams, image_filename in RAMS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">RAM</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ rams.2 }}
                                                 </h4>
@@ -288,13 +287,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% for SSDs, image_filename in products_with_images %}
+                                    {% endfor %}
+                                    {% for SSDs, image_filename in SSDS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">SSD</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ SSDs.2 }}
                                                 </h4>
@@ -313,13 +313,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% for HDDs, image_filename in products_with_images %}
+                                    {% endfor %}
+                                    {% for HDDs, image_filename in HDDS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
                                                 <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">HDD</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                                 <h4>{{ HDDs.2 }}
                                                 </h4>
@@ -338,7 +339,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {% for CPUs, image_filename in products_with_images %}
+                                    {% endfor %}
+                                    {% for CPUs, image_filename in CPUS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
@@ -346,28 +348,49 @@
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>{{ HDDs.2 }}
+                                                <h4>{{ CPUs.2 }}
                                                 </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>name: {{ HDDs.2 }}</li>
-                                                        <li>Serial number: {{ HDDs.0 }}</li>
-                                                        <li>WriteSpeed: {{ HDDs.3 }} </li>
-                                                        <li>Capacity: {{ HDDs.4 }} </li>
-                                                        <li>ReadSpeed: {{ HDDs.5 }} </li>
+                                                        <li>name: {{ CPUs.2 }}</li>
+                                                        <li>Serial number: {{ CPUs.0 }}</li>
+                                                        <li>ClockSpeed: {{ CPUs.3 }} </li>
+                                                        <li>Generation: {{ CPUs.4 }} </li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ HDDs.1 }}</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ CPUs.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    GPUs, 
-                                    
+                                    {% endfor %}
+                                    {% for GPUs, image_filename in GPUS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                       
+                                        <div class="rounded position-relative fruite-item">
+                                            <div class="fruite-img">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
+                                            </div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">GPU</div>
+                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                <h4>{{ GPUs.2 }}
+                                                </h4>
+                                                <p>About this item:</p>
+                                                    <ul>
+                                                        <li>name: {{ GPUs.2 }}</li>
+                                                        <li>Serial number: {{ GPUs.0 }}</li>
+                                                        <li>ClockSpeed: {{ GPUs.3 }} </li>
+                                                        <li>Generation: {{ GPUs.4 }} </li>
+                                                    </ul>
+                                                <div class="d-flex justify-content-between flex-lg-wrap">
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ GPUs.1 }}</p>
+                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}                                    
+                                    <div class="col-md-6 col-lg-6 col-xl-4">
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                     </div>
