@@ -194,8 +194,97 @@ def custom_components_view(request):
         cursor.execute(
             "SELECT * FROM component INNER JOIN monitor ON component.SerialNumber = monitor.SerialNumber;")
         monitors = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN keyboard ON component.SerialNumber = keyboard.SerialNumber;")
+        keyboards = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN ram ON component.SerialNumber = ram.SerialNumber;")
+        rams = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber AND storage_device.SSD_flag = 1;")
+        SSDs = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber AND storage_device.HDD_flag = 1;")
+        HDDs = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber AND processing_unit.CPU_flag = 1;")
+        CPUs = cursor.fetchall()
+        cursor.execute(
+            "SELECT * FROM component INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber AND processing_unit.GPU_flag = 1;")
+        GPUs = cursor.fetchall()
         image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
                            'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
                            'westernhdd.jpg', 'coffekeyboard.jpg']  # Add your image filenames here
-        products_with_images = zip(products, image_filenames)
-        return render(request, 'computers.html', {'products_with_images': products_with_images})
+        products_with_images = zip(monitors, keyboards, rams, SSDs, HDDs, CPUs, GPUs, image_filenames)
+        return render(request, 'shop.html', {'products_with_images': products_with_images})
+
+
+from django.shortcuts import render
+from django.db import connection
+
+def custom_stock_data(request):
+    with connection.cursor() as cursor:
+        query = """
+            SELECT 
+                server.component.SerialNumber AS ComponentSerialNumber, 
+                server.component.Price AS ComponentPrice, 
+                server.component.Name AS ComponentName, 
+                monitor.SerialNumber AS MonitorSerialNumber, 
+                keyboard.SerialNumber AS KeyboardSerialNumber, 
+                ram.SerialNumber AS RAMSerialNumber, 
+                ssd.Capacity AS SSDCapacity, 
+                ssd.SerialNumber AS SSDSerialNumber, 
+                ssd.WriteSpeed AS SSDWriteSpeed, 
+                hdd.Capacity AS HDDCapacity, 
+                hdd.SerialNumber AS HDDSerialNumber, 
+                hdd.ReadSpeed AS HDDReadSpeed, 
+                hdd.SSD_flag AS HDDSSDFlag, 
+                hdd.HDD_flag AS HDDHDDFlag, 
+                cpu.SerialNumber AS CPUSerialNumber, 
+                cpu.ClockSpeed AS CPUClockSpeed, 
+                cpu.Generation AS CPUGeneration, 
+                cpu.CPU_flag AS CPUCPUFlag, 
+                cpu.GPU_flag AS CPUGPUFlag, 
+                gpu.SerialNumber AS GPUSerialNumber, 
+                gpu.ClockSpeed AS GPUClockSpeed, 
+                gpu.Generation AS GPUGeneration, 
+                gpu.CPU_flag AS GPUCPUFlag, 
+                gpu.GPU_flag AS GPUGPUFlag
+            FROM 
+                server.component
+            LEFT JOIN 
+                monitor ON server.component.SerialNumber = monitor.SerialNumber
+            LEFT JOIN 
+                keyboard ON server.component.SerialNumber = keyboard.SerialNumber
+            LEFT JOIN 
+                ram ON server.component.SerialNumber = ram.SerialNumber
+            LEFT JOIN 
+                storage_device AS ssd ON server.component.SerialNumber = ssd.SerialNumber AND ssd.SSD_flag = 1
+            LEFT JOIN 
+                storage_device AS hdd ON server.component.SerialNumber = hdd.SerialNumber AND hdd.HDD_flag = 1
+            LEFT JOIN 
+                processing_unit AS cpu ON server.component.SerialNumber = cpu.SerialNumber AND cpu.CPU_flag = 1
+            LEFT JOIN 
+                processing_unit AS gpu ON server.component.SerialNumber = gpu.SerialNumber AND gpu.GPU_flag = 1;
+        """
+        cursor.execute(query)
+        components = cursor.fetchall()
+        
+        stock_data = []
+        for component in components:
+            # Extract relevant data from each component
+            monitor_data = component[3:10]
+            keyboard_data = component[10:17]
+            ram_data = component[17:24]
+            ssd_data = component[24:31]
+            hdd_data = component[31:38]
+            cpu_data = component[38:45]
+            gpu_data = component[45:]
+            
+            # Combine data for each component into a tuple
+            component_data = (monitor_data, keyboard_data, ram_data, ssd_data, hdd_data, cpu_data, gpu_data)
+            stock_data.append(component_data)
+        
+        return render(request, 'stock_data.html', {'stock_data': stock_data})
+
+    

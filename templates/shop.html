@@ -151,17 +151,6 @@
                             <div class="col-6"></div>
                             <div class="col-xl-3">
                                 <!-- Changed -->
-                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
-                                    <label for="fruits">Default Sorting:</label>
-                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
-                                        <option value="volvo">Price</option>
-                                        <option value="saab">Popularity</option>
-                                        <option value="opel">Performance</option>
-                                        <option value="brand">Brand</option>
-                                        <option value="compatibility">Compatibility</option>
-                                        <option value="availability">Availability</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                         <div class="row g-4">
@@ -212,36 +201,9 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <h4 class="mb-2">Price</h4>
-                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
-                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
-                                        </div>
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="mb-3">
-                                            <!-- Changed -->
-                                            <h4>Additional Options</h4>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
-                                                <label for="Categories-1"> In stock</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
-                                                <label for="Categories-2"> Discounted</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
-                                                <label for="Categories-3"> Sale Festival</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
-                                                <label for="Categories-4"> Discount</label>
-                                            </div>
-                                            <div class="mb-2">
-                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
-                                                <label for="Categories-5"> Popular</label>
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
@@ -256,191 +218,158 @@
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center">
+                                    {% for monitors, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
-
-
-
-                                            
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/intel-corei5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Intel® Core™ i5-10400 Processor
+                                                <h4>{{ monitors.2 }}
                                                 </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: Intel® </li>
-                                                        <li>Generation:Core™ i5-10400 </li>
-                                                        <li>Clock speed: Up to 4.3 GHz</li>
-                                                        <li>Intel Optane Memory support</li>
-                                                        <li>Cooler included</li>
+                                                        <li>name: {{ monitors.2 }}</li>
+                                                        <li>Serial number: {{ monitors.0 }}</li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$130</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ monitors.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% for keyboards, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/gigabyte.jpeg' %}" class="img-fluid w-100 rounded-top" alt="">
-                                            </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">GPU</div>
-                                            <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>GIGABYTE GTX 1650 Graphic Card</h4>
-                                                <p>About this item:</p>
-                                                    <ul>
-                                                        <li>Brand: GIGABYTE® </li>
-                                                        <li>Generation:GTX 1650 </li>
-                                                        <li>Clock speed: 1620 MHz </li>
-                                                        <li>NVIDIA Turing architecture</li>
-                                                        <li>Blade fan included</li>
-                                                    </ul>
-                                                <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$150</p>
-                                                    <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <div class="rounded position-relative fruite-item">
-                                            <div class="fruite-img">
-                                                <img src="{% static 'img/ryzen5.png' %}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4> AMD Ryzen 5 1400 Processor</h4>
+                                                <h4>{{ keyboards.2 }}
+                                                </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: AMD® </li>
-                                                        <li>Generation:Ryzen 5 1400 </li>
-                                                        <li>Clock speed: 3.2 GHz </li>
-                                                        <li>Zen architecture</li>
-                                                        <li>Cooler Not included</li>
+                                                        <li>name: {{ keyboards.2 }}</li>
+                                                        <li>Serial number: {{ keyboards.0 }}</li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$38.99</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ keyboards.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% for rams, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/acernitro.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Monitor</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Acer Nitro 23.8” Full HD (1920 x 1080) Monitor</h4>
+                                                <h4>{{ rams.2 }}
+                                                </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: Acer® </li>
-                                                        <li>Display Size:23.8 inches </li>
-                                                        <li>Clock speed: 3.2 GHz </li>
-                                                        <li>Resolution: FHD 1080p</li>
-                                                        <li>Aspect Ratio: 16:9</li>
+                                                        <li>name: {{ rams.2 }}</li>
+                                                        <li>Serial number: {{ rams.0 }}</li>
+                                                        <li>capacity: {{ rams.3 }}</li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$109.99</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ rams.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% for SSDs, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/kingstonssd.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">SSD</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Kingston NV2 1TB M.2 2280 NVMe Internal SSD</h4>
+                                                <h4>{{ SSDs.2 }}
+                                                </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: Kingston® </li>
-                                                        <li>Interface: NVMe </li>
-                                                        <li>Storage: 1 TB </li>
-                                                        <li>Read/Write speed: 3500MB/s</li>
-                                                        <li>Generation: PCle 4.0</li>
+                                                        <li>name: {{ SSDs.2 }}</li>
+                                                        <li>Serial number: {{ SSDs.0 }}</li>
+                                                        <li>WriteSpeed: {{ SSDs.3 }} </li>
+                                                        <li>Capacity: {{ SSDs.4 }} </li>
+                                                        <li>ReadSpeed: {{ SSDs.5 }} </li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$60.99</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ SSDs.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% for HDDs, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/westernhdd.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">HDD</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>Western Digital Black 4TB Performance Internal Hard Drive</h4>
+                                                <h4>{{ HDDs.2 }}
+                                                </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: 	Western Digital® </li>
-                                                        <li>Interface: Serial ATA-600 </li>
-                                                        <li>Storage: 4 TB </li>
-                                                        <li>Rotational speed: 7200 RPM</li>
-                                                        <li>Generation: SATA</li>
+                                                        <li>name: {{ HDDs.2 }}</li>
+                                                        <li>Serial number: {{ HDDs.0 }}</li>
+                                                        <li>WriteSpeed: {{ HDDs.3 }} </li>
+                                                        <li>Capacity: {{ HDDs.4 }} </li>
+                                                        <li>ReadSpeed: {{ HDDs.5 }} </li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$80.99</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ HDDs.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    {% for CPUs, image_filename in products_with_images %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
-                                                <img src="{% static 'img/coffekeyboard.jpg' %}" class="img-fluid w-100 rounded-top img-resize" alt="">
+                                                <img src="{% static 'img/'|add:image_filename %}" class="img-fluid w-100 rounded-top" alt="">
                                             </div>
-                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">Keyboard</div>
+                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">CPU</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>M87 Wireless Gaming Mechanical Keyboard</h4>
+                                                <h4>{{ HDDs.2 }}
+                                                </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>Brand: 	ATTACK SHARK® </li>
-                                                        <li>Connector: USB Type C </li>
-                                                        <li>Compatible Devices: Win, Mac </li>
-                                                        <li> Bluetooth 5.0</li>
-                                                        <li>Mechanical Keys</li>
+                                                        <li>name: {{ HDDs.2 }}</li>
+                                                        <li>Serial number: {{ HDDs.0 }}</li>
+                                                        <li>WriteSpeed: {{ HDDs.3 }} </li>
+                                                        <li>Capacity: {{ HDDs.4 }} </li>
+                                                        <li>ReadSpeed: {{ HDDs.5 }} </li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">$25.99</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ HDDs.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
+                                    GPUs, 
+                                    
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                        
                                     </div>
                                     <div class="col-md-6 col-lg-6 col-xl-4">
-                                        
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="pagination d-flex justify-content-center mt-5">
-                                            <a href="#" class="rounded">&laquo;</a>
-                                            <a href="#" class="active rounded">1</a>
-                                            <a href="#" class="rounded">2</a>
-                                            <a href="#" class="rounded">3</a>
-                                            <a href="#" class="rounded">4</a>
-                                            <a href="#" class="rounded">5</a>
-                                            <a href="#" class="rounded">6</a>
-                                            <a href="#" class="rounded">&raquo;</a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

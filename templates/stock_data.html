@@ -55,25 +55,25 @@
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
                             <li>
-                                <a href="index2.html">
+                                <a href="AdminPanel">
                                     <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                             </li>
                         </li>
-                        <li class="active has-sub">
+                        <!-- <li class="active has-sub">
                             <li>
                                 <a href="history.html">
                                     <i class="fas fa-shopping-basket"></i>History</a>
                             </li>
-                        </li>
-                        <li class="active has-sub">
+                        </li> -->
+                        <!-- <li class="active has-sub">
                             <li>
                                 <a href="User_data.html">
                                     <i class="fas fa-id-card"></i>User Data</a>
                             </li>
-                        </li>
+                        </li> -->
                         <li class="active has-sub">
                             <li>
-                                <a href="stock_data.html">
+                                <a href=" ">
                                     <i class="fas fa-table"></i>Stock Data</a>
                             </li>
                         </li>
@@ -127,22 +127,22 @@
                         <ul class="list-unstyled navbar__list">
                             <li class="active has-sub">
                                 <li>
-                                    <a href="index2.html">
+                                    <a href="AdminPanel">
                                         <i class="fas fa-tachometer-alt"></i>Dashboard</a>
                                 </li>
                             </li>
-                            <li class="active has-sub">
+                            <!-- <li class="active has-sub">
                                 <li>
                                     <a href="history.html">
                                         <i class="fas fa-shopping-basket"></i>History</a>
                                 </li>
-                            </li>
-                            <li class="active has-sub">
+                            </li> -->
+                            <!-- <li class="active has-sub">
                                 <li>
                                     <a href="User_data.html">
                                         <i class="fas fa-id-card"></i>User Data</a>
                                 </li>
-                            </li>
+                            </li> -->
                             <li class="active has-sub">
                                 <li>
                                     <a href="stock_data.html">
@@ -193,26 +193,9 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE -->
                                 <h3 class="title-5 m-b-35">Stock Data</h3>
-                                <div class="table-data__tool">
+                                <!-- <div class="table-data__tool">
                                     <div class="table-data__tool-left">
-                                        <div class="rs-select2--light rs-select2--md">
-                                            <select class="js-select2" name="property">
-                                                <option selected="selected">All Properties</option>
-                                                <option value="">Option 1</option>
-                                                <option value="">Option 2</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <div class="rs-select2--light rs-select2--sm">
-                                            <select class="js-select2" name="time">
-                                                <option selected="selected">Today</option>
-                                                <option value="">3 Days</option>
-                                                <option value="">1 Week</option>
-                                            </select>
-                                            <div class="dropDownSelect2"></div>
-                                        </div>
-                                        <button class="au-btn-filter">
-                                            <i class="zmdi zmdi-filter-list"></i>filters</button>
+                                       
                                     </div>
                                     <div class="table-data__tool-right">
                                         <button class="au-btn au-btn-icon au-btn--green au-btn--small">
@@ -267,7 +250,49 @@
                                             <tr class="spacer"></tr>
                                         </tbody>
                                     </table>
-                                </div>
+                                </div> -->
+
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Component Type</th>
+                                            <th>Serial Number</th>
+                                            <th>Price</th>
+                                            <th>Name</th>
+                                            <th>Capacity</th>
+                                            <th>Write Speed</th>
+                                            <th>Read Speed</th>
+                                            <th>SSD Flag</th>
+                                            <th>HDD Flag</th>
+                                            <th>Clock Speed</th>
+                                            <th>Generation</th>
+                                            <th>CPU Flag</th>
+                                            <th>GPU Flag</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for component_data in stock_data %}
+                                        {% for data in component_data %}
+                                        <tr>
+                                            <td>{{ data.0 }}</td>
+                                            <td>{{ data.1 }}</td>
+                                            <td>{{ data.2 }}</td>
+                                            <td>{{ data.3 }}</td>
+                                            <td>{{ data.4 }}</td>
+                                            <td>{{ data.5 }}</td>
+                                            <td>{{ data.6 }}</td>
+                                            <td>{{ data.7 }}</td>
+                                            <td>{{ data.8 }}</td>
+                                            <td>{{ data.9 }}</td>
+                                            <td>{{ data.10 }}</td>
+                                            <td>{{ data.11 }}</td>
+                                            <td>{{ data.12 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                
                                 <!-- END DATA TABLE -->
                             </div>
                         </div>
