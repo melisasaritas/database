@@ -1,13 +1,21 @@
 from django.urls import path
 from django.views.generic import TemplateView
-from .views import custom_register_view, custom_view, custom_login_view, custom_home_view, add_to_cart, view_cart, checkout, remove_item, custom_computers_view, custom_stock_data, custom_components_view
+from .views import custom_register_view, custom_view, custom_login_view, custom_home_view, add_to_cart, view_cart, checkout, remove_item, custom_computers_view, custom_stock_data, custom_components_view, add_components_to_cart, show_monitors
 
 app_name = 'myapp'
 
 urlpatterns = [
     path('', custom_home_view, name=""),
-    path('add_to_cart/<int:product_id>/<int:ram>/<str:price>/<int:processor>/<str:name>/',
-         add_to_cart, name='add_to_cart'),
+    path('add_to_cart/<int:product_id>/<int:ram>/<str:price>/<int:processor>/<str:name>/', add_to_cart, name='add_to_cart'),
+    path('add_components_to_cart/<int:product_id>/<str:price>/<str:name>/', add_components_to_cart, name='add_components_to_cart'),
+    path('monitors', show_monitors, name='show_monitors'),
+    path('monitors', show_monitors, name='show_monitors'),
+    path('monitors', show_monitors, name='show_monitors'),
+    path('monitors', show_monitors, name='show_monitors'),
+    path('monitors', show_monitors, name='show_monitors'),
+    path('monitors', show_monitors, name='show_monitors'),
+
+
 
     path('BuildPc', custom_components_view, name="shop.html"),
     path('PreMade', custom_computers_view, name="computers.html"),

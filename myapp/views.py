@@ -135,6 +135,7 @@ def add_to_cart(request, product_id, ram, price, processor, name):
                         RAM INT,
                         Price FLOAT,
                         Processor INT,
+
                         Name VARCHAR(100) NOT NULL,
                         FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
                     )
@@ -143,8 +144,33 @@ def add_to_cart(request, product_id, ram, price, processor, name):
             INSERT INTO cart (ComputerID, RAM, Price, Processor, Name)
             VALUES (%s, %s, %s, %s, %s)
         """
-        cursor.execute(insert_query, (product_id,
-                       ram, price_f, processor, name))
+        cursor.execute(insert_query, (product_id, ram, price_f, processor, name))
+    
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def add_components_to_cart(request, product_id, name, price):
+    with connection.cursor() as cursor:
+        price_f = float(price)
+        cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS cart (
+                        CartID INT AUTO_INCREMENT PRIMARY KEY,
+                        ComputerID INT,
+                        RAM INT,
+                        Price FLOAT,
+                        Processor INT,
+
+                        Name VARCHAR(100) NOT NULL,
+                        FOREIGN KEY (ComputerID) REFERENCES Computer(ComputerID)
+                    )
+                """)
+        insert_query = """
+            INSERT INTO cart (ComputerID, Price, Name)
+            VALUES (%s, %s, %s)
+        """
+        cursor.execute(insert_query, (product_id, price_f, name))
+    
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
 
 
 def view_cart(request):
@@ -229,19 +255,234 @@ def custom_components_view(request):
     
         return render(request, 'shop.html', {'MONITORS': monitors_with_images, 'KEYBOARDS': keyboards_with_images, 'RAMS': rams_with_images, 'SSDS': SSDs_with_images, 'HDDS': HDDs_with_images, 'CPUS': CPUs_with_images, 'GPUS': GPUs_with_images})
 
+def show_monitors(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "SELECT component.*, monitor.* "
+            "FROM component "
+            "INNER JOIN monitor ON component.SerialNumber = monitor.SerialNumber"
+        )
+        monitors = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        monitors_with_images = zip(monitors, image_filenames)
+    return render(request, 'shop.html', {'MONITORS': monitors_with_images})
 
-from django.shortcuts import render
-from django.db import connection
+def show_keyboards(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN keyboard ON component.SerialNumber = keyboard.SerialNumber;""")
+        keyboards = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        keyboards_with_images = zip(keyboards, image_filenames)
+    return render(request, 'shop.html', {'KEYBOARDS': keyboards_with_images})
+
+def show_rams(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN ram ON component.SerialNumber = ram.SerialNumber;""")
+        rams = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        rams_with_images = zip(rams, image_filenames)
+    return render(request, 'shop.html', {'RAMS': rams_with_images})
+
+def show_ssds(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber AND storage_device.SSD_flag = 1;""")
+        SSDs = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        SSDs_with_images = zip(SSDs, image_filenames)
+    return render(request, 'shop.html', {'SSDS': SSDs_with_images})
+
+def show_hdds(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber AND storage_device.HDD_flag = 1;""")
+        HDDs = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        HDDs_with_images = zip(HDDs, image_filenames)
+    return render(request, 'shop.html', {'HDDDS': HDDs_with_images})
+
+def show_cpus(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber AND processing_unit.CPU_flag = 1;""")
+        CPUs = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        CPUs_with_images = zip(CPUs, image_filenames)
+    return render(request, 'shop.html', {'CPUS': CPUs_with_images})
+
+def show_gpus(request):
+    with connection.cursor() as cursor:
+        cursor.execute(
+            """SELECT * FROM component INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber AND processing_unit.GPU_flag = 1;""")
+        GPUs = cursor.fetchall()
+        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
+                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
+                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        GPUs_with_images = zip(GPUs, image_filenames)
+    return render(request, 'shop.html', {'GPUS': GPUs_with_images})
+
 
 def custom_stock_data(request):
     with connection.cursor() as cursor:
-        cursor.execute('''
-                       SELECT * FROM customer WHERE username = 'user1'
-                       ''')
-        userdata = cursor.fetchone()
+        # Fetch components with monitors
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name 
+            FROM component 
+            INNER JOIN monitor ON component.SerialNumber = monitor.SerialNumber
+            '''
+        )
+        monitors = cursor.fetchall()
 
-        return redirect("/AdminPanel")
+        # Fetch components with keyboards
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name  
+            FROM component 
+            INNER JOIN keyboard ON component.SerialNumber = keyboard.SerialNumber;
+            '''
+        )
+        keyboards = cursor.fetchall()
 
+        # Fetch components with RAM
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name, ram.Capacity 
+            FROM component 
+            INNER JOIN ram ON component.SerialNumber = ram.SerialNumber;
+            '''
+        )
+        rams = cursor.fetchall()
+
+        # Fetch components with SSDs
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name, storage_device.WriteSpeed, storage_device.Capacity, storage_device.ReadSpeed 
+            FROM component 
+            INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber 
+            AND storage_device.SSD_flag = 1;
+            '''
+        )
+        SSDs = cursor.fetchall()
+
+        # Fetch components with HDDs
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name, storage_device.WriteSpeed, storage_device.Capacity, storage_device.ReadSpeed 
+            FROM component 
+            INNER JOIN storage_device ON component.SerialNumber = storage_device.SerialNumber 
+            AND storage_device.HDD_flag = 1;
+            '''
+        )
+        HDDs = cursor.fetchall()
+
+        # Fetch components with CPUs
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name, processing_unit.ClockSpeed, processing_unit.Generation 
+            FROM component 
+            INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber 
+            AND processing_unit.CPU_flag = 1;
+            '''
+        )
+        CPUs = cursor.fetchall()
+
+        # Fetch components with GPUs
+        cursor.execute(
+            '''
+            SELECT component.SerialNumber, component.Price, component.Name, processing_unit.ClockSpeed, processing_unit.Generation 
+            FROM component 
+            INNER JOIN processing_unit ON component.SerialNumber = processing_unit.SerialNumber 
+            AND processing_unit.GPU_flag = 1;
+            '''
+        )
+        GPUs = cursor.fetchall()
+
+
+        cursor.execute(
+            "SELECT * FROM Pre_assembled")
+        pre_assembled = cursor.fetchall()
+
+        return render(request, 'stock_data.html', {
+            'monitors': monitors,
+            'keyboards': keyboards,
+            'rams': rams,
+            'SSDs': SSDs,
+            'HDDs': HDDs,
+            'CPUs': CPUs,
+            'GPUs': GPUs,
+            'pre_assembled' : pre_assembled
+        })
+
+
+@api_view(['GET', 'POST'])
+def custom_insert_preassembled_view(request):
+    if request.method == 'POST':
+        computer_id = request.POST.get('ComputerID')
+        ram = request.POST.get('RAM')
+        price = request.POST.get('Price')
+        processor = request.POST.get('Processor')
+        type = request.POST.get('Type')
+        name = request.POST.get('Name')
+
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "INSERT INTO pre_assembled (ComputerID, RAM, Price, Processor, Type, Name) VALUES (%s, %s, %s, %s, %s, %s)", [computer_id, ram, price, processor, type, name])
+
+        return render('')
+
+    else:
+        return render(request, 'stock_data.html', {'error': 'Invalid credentials'})
+
+
+# from django.views.decorators.http import require_http_methods
+# from rest_framework.decorators import api_view
+
+
+# @api_view(['POST'])
+# @require_http_methods(["POST"])
+# def custom_insert_preassembled_view(request):
+#     computer_id = request.POST.get('ComputerID')
+#     ram = request.POST.get('RAM')
+#     price = request.POST.get('Price')
+#     processor = request.POST.get('Processor')
+#     type = request.POST.get('Type')
+#     name = request.POST.get('Name')
+
+#     with connection.cursor() as cursor:
+#         cursor.execute(
+#             "INSERT INTO pre_assembled (ComputerID, RAM, Price, Processor, Type, Name) VALUES (%s, %s, %s, %s, %s, %s)", 
+#             [computer_id, ram, price, processor, type, name]
+#         )
+
+#     return redirect('stock_data_view')
+
+# @api_view(['POST'])
+# @require_http_methods(["POST"])
+# def custom_remove_preassembled_view(request):
+#     computer_id = request.POST.get('ComputerID')
+
+#     with connection.cursor() as cursor:
+#         cursor.execute(
+#             "DELETE FROM pre_assembled WHERE ComputerID = %s", [computer_id]
+#         )
+
+#     return redirect('stock_data_view')
+    
 
 
 
