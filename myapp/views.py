@@ -274,9 +274,7 @@ def show_keyboards(request):
         cursor.execute(
             """SELECT * FROM component INNER JOIN keyboard ON component.SerialNumber = keyboard.SerialNumber;""")
         keyboards = cursor.fetchall()
-        image_filenames = ['intel-corei5.jpg', 'gigabyte.jpeg',
-                           'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
-                           'westernhdd.jpg', 'coffekeyboard.jpg']
+        image_filenames = ['coffekeyboard.jpg', 'intel-corei5.jpg', 'gigabyte.jpeg']
         keyboards_with_images = zip(keyboards, image_filenames)
     return render(request, 'shop.html', {'KEYBOARDS': keyboards_with_images})
 
@@ -311,7 +309,7 @@ def show_hdds(request):
                            'ryzen5.png', 'acernitro.jpg', 'kingstonssd.jpg',
                            'westernhdd.jpg', 'coffekeyboard.jpg']
         HDDs_with_images = zip(HDDs, image_filenames)
-    return render(request, 'shop.html', {'HDDDS': HDDs_with_images})
+    return render(request, 'shop.html', {'HDDS': HDDs_with_images})
 
 def show_cpus(request):
     with connection.cursor() as cursor:
@@ -436,17 +434,24 @@ def custom_insert_preassembled_view(request):
         ram = request.POST.get('RAM')
         price = request.POST.get('Price')
         processor = request.POST.get('Processor')
-        type = request.POST.get('Type')
+        Type = request.POST.get('Type')
         name = request.POST.get('Name')
 
         with connection.cursor() as cursor:
             cursor.execute(
-                "INSERT INTO pre_assembled (ComputerID, RAM, Price, Processor, Type, Name) VALUES (%s, %s, %s, %s, %s, %s)", [computer_id, ram, price, processor, type, name])
-
-        return render('')
-
+                "INSERT INTO pre_assembled (ComputerID, RAM, Price, Processor, Type, Name) VALUES (%s, %s, %s, %s, %s, %s)", [computer_id, ram, price, processor, Type, name])
+        return redirect(request.META.get('HTTP_REFERER', '/'))
     else:
         return render(request, 'stock_data.html', {'error': 'Invalid credentials'})
+
+def custom_remove_preassembled_view(request):
+    computer_id = request.POST.get('ComputerID')
+
+    with connection.cursor() as cursor:
+        cursor.execute(
+            "DELETE FROM pre_assembled WHERE ComputerID = %s;", [computer_id]
+        )
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 # from django.views.decorators.http import require_http_methods
@@ -473,15 +478,7 @@ def custom_insert_preassembled_view(request):
 
 # @api_view(['POST'])
 # @require_http_methods(["POST"])
-# def custom_remove_preassembled_view(request):
-#     computer_id = request.POST.get('ComputerID')
-
-#     with connection.cursor() as cursor:
-#         cursor.execute(
-#             "DELETE FROM pre_assembled WHERE ComputerID = %s", [computer_id]
-#         )
-
-#     return redirect('stock_data_view')
+# 
     
 
 
