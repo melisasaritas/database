@@ -218,7 +218,7 @@
 
                             <div class="col-lg-9">
                                 <div class="row g-4 justify-content-center">
-                                    {% for monitors, image_filename in MONITORS %}
+                                    {% for monitor, image_filename in MONITORS %}
                                     <div class="col-md-6 col-lg-6 col-xl-4">
                                         <div class="rounded position-relative fruite-item">
                                             <div class="fruite-img">
@@ -226,15 +226,15 @@
                                             </div>
                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">MONITOR</div>
                                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                <h4>{{ monitors.2 }}
+                                                <h4>{{ monitor.2 }}
                                                 </h4>
                                                 <p>About this item:</p>
                                                     <ul>
-                                                        <li>name: {{ monitors.2 }}</li>
-                                                        <li>Serial number: {{ monitors.0 }}</li>
+                                                        <li>name: {{ monitor.2 }}</li>
+                                                        <li>Serial number: {{ monitor.0 }}</li>
                                                     </ul>
                                                 <div class="d-flex justify-content-between flex-lg-wrap">
-                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ monitors.1 }}</p>
+                                                    <p class="text-dark fs-5 fw-bold mb-0">{{ monitor.1 }}</p>
                                                     <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
                                                 </div>
                                             </div>
