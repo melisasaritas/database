@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | BuildyourPC.com</title>
+  <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body>
+  <div class="wrapper">
+    <h2>Login</h2>
+    <form method="POST" action="{% url 'myapp:login' %}">
+      {% csrf_token %}
+      <div class="input-box">
+        <input type="text" name="username" placeholder="Enter your username" required>
+      </div>
+      <div class="input-box">
+        <input type="password" name="password" placeholder="Enter password" required>
+      </div>
+      <div class="input-box button">
+        <input type="submit" value="Login">
+      </div>
+      {% if error %}
+      <div class="error">
+        <p>{{ error }}</p>
+      </div>
+      {% endif %}
+    </form>
+    <div class="text">
+      <h3>Don't have an account? <a href="{% url 'myapp:signup' %}">Register now</a></h3>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <title> Register now | BuildyourPC.com </title>
+  <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  {% load static %}
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+      <form method="post" action="{% url 'myapp:signup' %}">
+        {% csrf_token %}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Full Name</span>
+            <input type="text" name="full_name" placeholder="Enter your name" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Username</span>
+            <input type="text" name="username" placeholder="Enter your username" required>
+          </div>
+          <div class="input-box">
+            <span class="details">Password</span>
+            <input type="password" name="password" placeholder="Enter your password" required>
+          </div>
+          <!-- Add other input fields as needed -->
+        </div>
+      
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
