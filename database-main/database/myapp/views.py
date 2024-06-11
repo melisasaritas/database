@@ -100,14 +100,27 @@ def custom_register_view(request):
         # Retrieve form data
         username = request.POST.get('username')
         password = request.POST.get('password')
+        address = request.POST.get('address')
+        bank_account = request.POST.get('bank_account')
+        phone_number = request.POST.get('phone_number')
+
 
         # Execute raw SQL query to add user to the customer table
         with connection.cursor() as cursor:
             cursor.execute(
                 "INSERT INTO customer (Username, Password) VALUES (%s, %s)", [username, password])
-
+            cursor.execute(
+                "SELECT CustomerID FROM customer WHERE Username = %s AND Password = %s", [username, password])
+            customerid = cursor.fetchall()
+            cursor.execute(
+                "INSERT INTO cust_address (CustomerID, Address) VALUES (%s, %s)", [customerid, address])
+            cursor.execute(
+                "INSERT INTO cust_bankacc (CustomerID, BankAccount) VALUES (%s, %s)", [customerid, bank_account])
+            cursor.execute(
+                "INSERT INTO cust_phone (CustomerID, Phone) VALUES (%s, %s)", [customerid, phone_number])
+            
         # Redirect to a success page or any other desired view
-        return redirect('/UserAccount')
+        return redirect('/login')
 
     else:
         # Render the signup form template
@@ -476,6 +489,7 @@ def custom_insert_preassembled_view(request):
         return render(request, 'stock_data.html', {'error': 'Invalid credentials'})
 
 
+
 def custom_remove_preassembled_view(request):
     computer_id = request.POST.get('ComputerID')
 
@@ -484,30 +498,3 @@ def custom_remove_preassembled_view(request):
             "DELETE FROM pre_assembled WHERE ComputerID = %s;", [computer_id]
         )
         return redirect(request.META.get('HTTP_REFERER', '/'))
-
-
-# from django.views.decorators.http import require_http_methods
-# from rest_framework.decorators import api_view
-
-
-# @api_view(['POST'])
-# @require_http_methods(["POST"])
-# def custom_insert_preassembled_view(request):
-#     computer_id = request.POST.get('ComputerID')
-#     ram = request.POST.get('RAM')
-#     price = request.POST.get('Price')
-#     processor = request.POST.get('Processor')
-#     type = request.POST.get('Type')
-#     name = request.POST.get('Name')
-
-#     with connection.cursor() as cursor:
-#         cursor.execute(
-#             "INSERT INTO pre_assembled (ComputerID, RAM, Price, Processor, Type, Name) VALUES (%s, %s, %s, %s, %s, %s)",
-#             [computer_id, ram, price, processor, type, name]
-#         )
-
-#     return redirect('stock_data_view')
-
-# @api_view(['POST'])
-# @require_http_methods(["POST"])
-#
